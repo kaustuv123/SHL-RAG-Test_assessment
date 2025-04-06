@@ -1,3 +1,7 @@
+
+# Sorry I uploaded the wrong API endpoint. Here is the correct one
+# https://huggingface.co/spaces/nishantdd/shl
+
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from typing import List
