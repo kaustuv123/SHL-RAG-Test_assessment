@@ -54,7 +54,15 @@ def load_data(file_path: str) -> List[Dict[str, Any]]:
 def create_embeddings(data: List[Dict[str, Any]], model_name: str = "all-MiniLM-L6-v2") -> tuple[np.ndarray, SentenceTransformer]:
     """Create embeddings from assessment descriptions with additional context."""
     try:
-        model = SentenceTransformer(model_name)
+        # First try to load from local models directory
+        local_model_path = os.path.join('models', model_name)
+        if os.path.exists(local_model_path):
+            logger.info("Loading model from local directory...")
+            model = SentenceTransformer(local_model_path)
+        else:
+            logger.info("Loading model from HuggingFace...")
+            model = SentenceTransformer(model_name)
+            
         # Create rich text descriptions that include multiple fields
         rich_descriptions = []
         for item in data:
